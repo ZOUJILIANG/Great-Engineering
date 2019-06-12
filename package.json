@@ -1,6 +1,7 @@
 {
   "name": "my-game",
   "version": "0.0.0",
+  "main": "index.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,8 +21,16 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "ajv": "^6.10.0",
+    "bootstrap": "^4.3.1",
+    "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.5.4",
-    "rxjs": "^6.0.0",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "ngx-bootstrap": "^4.3.0",
+    "rxjs": "^6.3.3",
+    "superagent": "^5.0.6",
+    "sweetalert2": "^8.12.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

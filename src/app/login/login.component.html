@@ -1,0 +1,17 @@
+<div class="outer">
+    <div class="content container text-center">
+        <h3 class="text-info" style="padding-top: 10%">
+          欢迎来到私密花园
+        </h3>
+        <form (ngSubmit)="login()" [formGroup]="form">
+        <div class="input-group-login">
+            <input type="text" class="form-control" required formControlName="first" placeholder="用户名">
+            <input type="text" class="m-t-xxl form-control" required formControlName="second" minlength="6" placeholder="密码">
+            <div class="m-t-xxl">
+              <button type="submit" [disabled]="!form.valid" class="btn btn-info m-r-sm">登录</button>
+              <button type="button" class="btn btn-info" (click)="registered()">注册</button>
+            </div>
+        </div>
+      </form>
+      </div>
+</div>

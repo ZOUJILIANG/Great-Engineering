@@ -4,14 +4,14 @@
           欢迎来到私密家园
         </h3>
         <form (ngSubmit)="login()" [formGroup]="form">
-        <div class="input-group-login">
-            <input type="text" class="form-control" required formControlName="first" placeholder="用户名">
-            <input type="text" class="m-t-xxl form-control" required formControlName="second" minlength="6" placeholder="密码">
-            <div class="m-t-xxl">
-              <button type="submit" [disabled]="!form.valid" class="btn btn-primary m-r-sm btn-block">登录</button>
-              <button type="button" class="btn btn-success btn-block" (click)="registered()">注册</button>
-            </div>
-        </div>
-      </form>
+          <div class="input-group-login">
+              <input type="text" class="form-control" required formControlName="first" placeholder="用户名">
+              <input type="password" class="m-t-xxl form-control" required formControlName="second" minlength="6" placeholder="密码">
+              <div class="m-t-xxl">
+                <button type="submit" [disabled]="!form.valid" class="btn btn-primary m-r-sm btn-block">登录</button>
+                <button type="button" class="btn btn-success btn-block" (click)="registered()">注册</button>
+              </div>
+          </div>
+        </form>
       </div>
 </div>

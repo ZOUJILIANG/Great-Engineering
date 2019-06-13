@@ -1,5 +1,4 @@
-import { element } from 'protractor';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup , FormControl } from '@angular/forms';
@@ -14,7 +13,15 @@ export class LoginComponent implements OnInit {
   public userName: String;
   public passWord: String;
   public form: FormGroup;
-
+  public httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type, X-XSRF-TOKEN',
+      'token': localStorage.getItem('token')
+    }),
+    withCredentials: true
+  };
   constructor(
     private route: Router,
     private http: HttpClient
@@ -32,19 +39,25 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.http.get('http://localhost:8080/wiki/login').subscribe(value => {
-      const login_Pass = value['data'].filter((element1) => {
-        return this.form.value.first === element1.name && this.form.value.second === element1.password;
-      });
-      console.log(login_Pass);
-      if (login_Pass.length) {
-        this.route.navigate(['home']);
-      } else {
-        swal.fire('', '用户名或密码不正确', 'error');
-
-      }
-    }, error1 => {
-      console.log(error1);
+    // tslint:disable-next-line:max-line-length
+    const token$ = this.http.post('http://localhost:8080/wiki/setToken', {username: this.form.value.first, password: this.form.value.second});
+    // tslint:disable-next-line:max-line-length
+    const login$ = this.http.post('http://localhost:8080/wiki/login', {username: this.form.value.first, password: this.form.value.second}, this.httpOptions);
+    // tslint:disable-next-line:no-unused-expression
+    token$.subscribe(tokens => {
+      localStorage.setItem('token', tokens['token']);
+      login$.subscribe(
+        value => {
+        if (value['code'] !== 'INVALID') {
+          localStorage.setItem('token', value['token']);
+            this.route.navigate(['home']);
+          } else {
+            swal.fire('', '用户名或密码不正确', 'error');
+          }
+        }, error1 => {
+          swal.fire('', '用户不存在', 'error');
+        }
+      );
     });
   }
 }

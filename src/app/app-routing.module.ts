@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisteredComponent } from './registered/registered.component';
+import { TokenServiceService } from './service/token-service.service';
+import { AuthService } from './auth.service';
 
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthService] },
   { path: 'login', component: LoginComponent },
   { path: 'registered', component: RegisteredComponent }
 ];
@@ -20,6 +22,10 @@ const appRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    TokenServiceService,
+    AuthService
   ]
 })
 export class AppRoutingModule {}

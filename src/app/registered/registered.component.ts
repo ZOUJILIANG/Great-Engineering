@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registered',
@@ -8,8 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./registered.component.css']
 })
 export class RegisteredComponent implements OnInit {
-  public userName: String;
-  public passWord: String;
+  public validPassword = /^[\\uff08\\uff09\u4e00-\u9fa5]+$/;
   constructor(
     private http: HttpClient,
     private route: Router
@@ -18,10 +18,11 @@ export class RegisteredComponent implements OnInit {
   ngOnInit() {
   }
 
-  registered() {
-    this.http.post('http://localhost:8080/wiki/registered', {name: this.userName, password: this.passWord}).subscribe(
+  registered(data) {
+    this.http.post('http://localhost:8080/wiki/registered', {name: data.value.username, password: data.value.password}).subscribe(
       (value) => {
         console.log(value);
+        localStorage.setItem('token', value['token']);
         this.route.navigate(['login']);
       }, (error1) => {
         console.log(error1);

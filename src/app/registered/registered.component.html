@@ -3,12 +3,26 @@
     <h3 class="text-info" style="margin-top: 10%">
       离成功只差一步哦
     </h3>
-    <div class="input-group-login">
-      <input type="text" class="form-control" required [(ngModel)]="userName" name="userName" placeholder="用户名">
-      <input type="text" class="m-t-xxl form-control" required [(ngModel)]="passWord" name="passWord" placeholder="密码">
-      <div class="m-t-xxl">
-        <button type="button" class="btn btn-primary btn-block" (click)="registered()">确认</button>
-      </div>
+    <form #myForm = "ngForm">
+      <div class="input-group-login">
+          <input type="text" class="form-control" required [pattern]="validPassword" #username = "ngModel" ngModel name="username" placeholder="用户名">
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <alert *ngIf="username.errors.minlength || username.errors.required" type="danger">
+              <span>用户名不能为空</span>
+            </alert>
+            <alert *ngIf="username.errors.pattern" type="danger">
+              <span>用户名只能为中文汉字</span>
+            </alert>
+          </div>
+          <input type="password" class="m-t-xxl form-control"  required ngModel #password="ngModel" name="password" minlength="6" placeholder="密码">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+            <alert *ngIf="password.errors.minlength || password.errors.required" type="danger">
+              <span>密码长度不能小于6且不能为空</span>
+            </alert>
+          </div>
+          <div class="m-t-xxl">
+            <button type="button" (click)="registered(myForm)" class="btn btn-primary btn-block" [disabled]="!myForm.valid">确认</button>
+          </div>
     </div>
-  </div>
+  </form>
 </div>

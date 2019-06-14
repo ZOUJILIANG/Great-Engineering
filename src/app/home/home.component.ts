@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  }),
-  withCredentials: true
-};
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TokenAlertService } from '../service/token-alert.service';
 
 @Component({
   selector: 'app-home',
@@ -18,9 +10,8 @@ const httpOptions = {
 export class HomeComponent implements OnInit {
   title = 'app';
   public data;
-
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private tokenAlertService: TokenAlertService) {
 
   }
   ngOnInit() {
@@ -28,31 +19,13 @@ export class HomeComponent implements OnInit {
   }
 
   nodeTest() {
-    const asd = this.http.get('http://localhost:8080/getdata');
-    asd.subscribe(value => {
-      if (this.data) {
-        this.data = '';
-      } else {
-        console.log(value);
-        this.data = value;
-      }
-    });
-  }
 
-  nodeTest2() {
-    const asd = this.http.get('http://localhost:8080/wiki/about');
+    const asd = this.http.get('http://localhost:8080/wiki/getHomeContent');
     asd.subscribe(value => {
       console.log(value);
+    }, error1 => {
+    // console.log(error1);
+      this.tokenAlertService.alertToken();
     });
-  }
-
-  nodeTest3() {
-    this.http.post('http://localhost:8080/wiki/saveData', {name: '诸葛四郎', password: 'helloPassWord'}).subscribe(
-      (value) => {
-        console.log(value);
-      }, (error1) => {
-        console.log(error1);
-      }
-    );
   }
 }

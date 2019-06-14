@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { TokenServiceService } from './service/token-service.service';
 import { AuthService } from './auth.service';
+import { TokenAlertService } from './service/token-alert.service';
 
 
 const appRoutes: Routes = [
@@ -24,8 +25,7 @@ const appRoutes: Routes = [
     RouterModule
   ],
   providers: [
-    TokenServiceService,
-    AuthService
+
   ]
 })
 export class AppRoutingModule {}

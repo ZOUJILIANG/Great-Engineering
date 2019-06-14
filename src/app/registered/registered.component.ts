@@ -21,7 +21,6 @@ export class RegisteredComponent implements OnInit {
   registered(data) {
     this.http.post('http://localhost:8080/wiki/registered', {name: data.value.username, password: data.value.password}).subscribe(
       (value) => {
-        console.log(value);
         localStorage.setItem('token', value['token']);
         this.route.navigate(['login']);
       }, (error1) => {

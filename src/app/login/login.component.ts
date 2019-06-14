@@ -13,15 +13,6 @@ export class LoginComponent implements OnInit {
   public userName: String;
   public passWord: String;
   public form: FormGroup;
-  public httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type, X-XSRF-TOKEN',
-      'token': localStorage.getItem('token')
-    }),
-    withCredentials: true
-  };
   constructor(
     private route: Router,
     private http: HttpClient
@@ -41,20 +32,29 @@ export class LoginComponent implements OnInit {
   login() {
     // tslint:disable-next-line:max-line-length
     const token$ = this.http.post('http://localhost:8080/wiki/setToken', {username: this.form.value.first, password: this.form.value.second});
-    // tslint:disable-next-line:max-line-length
-    const login$ = this.http.post('http://localhost:8080/wiki/login', {username: this.form.value.first, password: this.form.value.second}, this.httpOptions);
     // tslint:disable-next-line:no-unused-expression
     token$.subscribe(tokens => {
       localStorage.setItem('token', tokens['token']);
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Headers': 'Content-Type, X-XSRF-TOKEN',
+          'token': localStorage.getItem('token')
+        }),
+        withCredentials: true
+      };
+      // tslint:disable-next-line:max-line-length
+      const login$ = this.http.post('http://localhost:8080/wiki/login', {username: this.form.value.first, password: this.form.value.second}, httpOptions);
       login$.subscribe(
         value => {
         if (value['code'] !== 'INVALID') {
-          localStorage.setItem('token', value['token']);
-            this.route.navigate(['home']);
+          this.route.navigate(['home']);
           } else {
             swal.fire('', '用户名或密码不正确', 'error');
           }
         }, error1 => {
+          console.log(error1);
           swal.fire('', '用户不存在', 'error');
         }
       );

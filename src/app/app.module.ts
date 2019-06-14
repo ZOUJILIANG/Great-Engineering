@@ -9,6 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { httpInterceptorProviders } from './service';
+import { TokenServiceService } from './service/token-service.service';
+import { TokenAlertService } from './service/token-alert.service';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,12 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     AlertModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    TokenServiceService,
+    TokenAlertService,
+    AuthService,
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

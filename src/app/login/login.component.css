@@ -1,10 +1,39 @@
 .input-group-login{
   margin-top:10%;width: 80%;margin-left: 10%;
 }
-.outer { height: 100vh; box-sizing: border-box ; position: relative;background-color: #5FD9CD }
-.content{
-  background: #ffffff; position: absolute; top: 100px ; left: 41% ; width: 100%;
-  width: 400px;height: 500px;
+.outer {
+  height: 100vh;
+  box-sizing: border-box ;
+   position: relative;
+   background-image: url('../../assets/image/login.jpg');
+   background-repeat: no-repeat;
+   background-repeat: round;
+  }
+
+input:focus
+{
+  border-width: 2px;
+border-color:#FF5733;
 }
+.content{
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 100px ;
+  left: 41% ;
+  width: 400px;
+  height: 500px;
+}
+.animate{transition: all 1s ease-in-out;}
+.content span{display: inline-block;position: absolute;content: none;border: 0;width: 0;height: 0;}
+.content span.top{right:0;top:0;border-top:4px solid #EAF786;margin-top:-2px;}
+.content:hover span.top{width:400px;}
+.content span.right{right:0;bottom:0;border-right:4px solid #FFB5A1;margin-right:-2px;}
+.content:hover span.right{height:500px;}
+.content span.bottom{left:0;bottom:0;border-bottom:4px solid #B8FFB8;margin-bottom:-2px;}
+.content:hover span.bottom{width:400px;}
+.content span.left{left:0;top:0;border-left:4px solid #B8F4FF;margin-left:-2px;}
+.content:hover span.left{height:500px;}
+
+
 
 /* 颜色#EAF786 #FFB5A1 #B8FFB8 #B8F4FF */

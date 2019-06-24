@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
     "ngx-bootstrap": "^4.3.0",
+    "ngx-swiper-wrapper": "^8.0.0",
     "rxjs": "6.0.0",
     "superagent": "^5.0.6",
     "sweetalert2": "^8.12.1",

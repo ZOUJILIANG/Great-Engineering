@@ -13,13 +13,18 @@ import { httpInterceptorProviders } from './service';
 import { TokenServiceService } from './service/token-service.service';
 import { TokenAlertService } from './service/token-alert.service';
 import { AuthService } from './auth.service';
+import { SwiperBodyComponent } from './home/swiper-body/swiper-body.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { TimerComponent } from './home/timer/timer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisteredComponent
+    RegisteredComponent,
+    SwiperBodyComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +32,7 @@ import { AuthService } from './auth.service';
     FormsModule,
     ReactiveFormsModule,
     AlertModule.forRoot(),
+    CarouselModule.forRoot(),
     AppRoutingModule
   ],
   providers: [

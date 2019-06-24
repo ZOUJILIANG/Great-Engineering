@@ -5,11 +5,11 @@ import { TokenAlertService } from '../service/token-alert.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  title = 'app';
-  public data;
+  public selectors: string = 'home';
+
   constructor(private http: HttpClient,
     private tokenAlertService: TokenAlertService) {
 
@@ -17,7 +17,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  selector(data) {
+    this.selectors = data;
+  }
   nodeTest() {
 
     const asd = this.http.get('http://localhost:8080/wiki/getHomeContent');
